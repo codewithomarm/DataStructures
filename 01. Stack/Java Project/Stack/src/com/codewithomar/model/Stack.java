@@ -15,6 +15,11 @@ public class Stack {
      * of the "Top" element of the Stack.
      */
     private int top;
+    /**
+     * Attribute that will store the initial array size provided by user. This attribute
+     * will define the size of the Stack.
+     */
+    private int size;
 
     /**
      * Default constructor
@@ -30,6 +35,7 @@ public class Stack {
      * @param size An integer value providing the size of the array "arr".
      */
     public Stack(int size) {
+        this.size = size;
         this.arr = new int[size];
         this.top = -1;
     }
@@ -43,33 +49,11 @@ public class Stack {
     }
 
     /**
-     * Get method to return the value from "arr" at a specific index.
-     * @param i An integer value which specifies the index position
-     *          that wants to be returned from "arr" attribute.
-     * @return Integer value from "arr" attribute at specific index.
-     */
-    public int getArrValueAtIndex(int i){
-        return arr[i];
-    }
-
-    /**
      * Set method for "arr" attribute
      * @param arr An integer array
      */
     public void setArr(int[] arr) {
         this.arr = arr;
-    }
-
-    /**
-     * Set method to assign an integer value at a specific index
-     * on "arr" attribute.
-     * @param i An integer value which specifies the index position
-     *          where the new value will be assigned.
-     * @param value The integer value that will be assigned at the given
-     *              index position.
-     */
-    public void setArrValueAtIndex(int i, int value){
-        this.arr[i] = value;
     }
 
     /**
@@ -87,5 +71,43 @@ public class Stack {
      */
     public void setTop(int top) {
         this.top = top;
+    }
+
+    /**
+     * Get method for "size" attribute
+     * @return size integer value
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Set method for "size" attribute
+     * @param size Integer value representing the size of the stack
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * Get method to return the value from "arr" at a specific index.
+     * @param i An integer value which specifies the index position
+     *          that wants to be returned from "arr" attribute.
+     * @return Integer value from "arr" attribute at specific index.
+     */
+    public int getArrValueAtIndex(int i){
+        return arr[i];
+    }
+
+    /**
+     * Set method to assign an integer value at a specific index
+     * on "arr" attribute.
+     * @param i An integer value which specifies the index position
+     *          where the new value will be assigned.
+     * @param value The integer value that will be assigned at the given
+     *              index position.
+     */
+    public void setArrValueAtIndex(int i, int value){
+        this.arr[i] = value;
     }
 }

@@ -37,7 +37,7 @@ public class StackService {
      * <br>This method compares if the "top" attribute current value equals -1</br>
      * @return "true" if the stack is empty. "false" if the stack is not empty.
      */
-    public boolean isStackEmpty(){
+    public boolean isEmpty(){
         return (stack.getTop() == -1);
     }
 
@@ -53,8 +53,66 @@ public class StackService {
      * @return true: if the stack is full.
      * <br>false: if the stack is not full.</br>
      */
-    public boolean isStackFull(){
-        return (stack.getTop() == (stack.getArr().length - 1));
+    public boolean isFull(){
+        return (stack.getTop() == (stack.getSize() - 1));
+    }
+
+    /**
+     * This method is used to return the element at the top of the stack.
+     * @return topElement Integer value representing the element at the top of the stack.
+     */
+    public int peek() {
+        int topElement;
+        if (isEmpty()) {
+            topElement = -1;
+        } else {
+            topElement = stack.getArrValueAtIndex(stack.getTop());
+        }
+        return topElement;
+    }
+
+    /**
+     * This method returns the total number of elements that are stored in the Stack.
+     * @return totalElements An integer value with the count of total elements in "arr" attribute from "stack" object.
+     */
+    public int getSize(){
+        int totalElements;
+        if (isEmpty()) {
+            totalElements = 0;
+        } else if (isFull()) {
+            totalElements = stack.getSize();
+        } else {
+            int count = 0;
+            for (int i=0; i<stack.getSize(); i++) {
+                if (stack.getArrValueAtIndex(i)>0) {
+                    count++;
+                }
+            }
+            totalElements = count;
+        }
+        return totalElements;
+    }
+
+    /**
+     * This method returns the total number of empty elements that are available in the stack.
+     * @return emptyElements An integer value with the count of empty elements in "arr" attribute from "stack" object
+     */
+    public int getEmptyElements() {
+        int emptyElements;
+        if (isEmpty()) {
+            emptyElements = stack.getSize();
+        } else if (isFull()) {
+            emptyElements = 0;
+        } else {
+            int count = stack.getSize();
+            for (int i=0; i<stack.getSize(); i++) {
+                if (stack.getArrValueAtIndex(i)>0) {
+                    count--;
+                }
+            }
+            emptyElements = count;
+        }
+        return emptyElements;
     }
 
     /**
@@ -75,9 +133,9 @@ public class StackService {
      * @return 1: if the push process was done successfully.
      * <br>-1: if the stack is full and the value could not be added.</br>
      */
-    public int pushStack(int newValue){
+    public int push(int newValue){
         int result = 0;
-        if (!isStackFull()) {
+        if (!isFull()) {
             stack.setTop(stack.getTop() + 1);
             stack.setArrValueAtIndex(stack.getTop(), newValue);
             result = 1; //Push method executed successfully
@@ -103,9 +161,9 @@ public class StackService {
      * the integer value that was removed at the Top of the stack.
      * <br>-1: if the stack is full and no value was removed.</br>
      */
-    public int popStack(){
+    public int pop(){
         int removedValue = 0;
-        if (!isStackEmpty()) {
+        if (!isEmpty()) {
             removedValue = stack.getArrValueAtIndex(stack.getTop());
             stack.setArrValueAtIndex(stack.getTop(), 0);
             stack.setTop(stack.getTop()-1);
@@ -119,10 +177,10 @@ public class StackService {
      * This method is used to print the "top" index value from "stack" object
      * and each individual integer value from the stack.
      */
-    public void printStack(){
+    public void print(){
         System.out.println("\tCURRENT STACK:");
         System.out.println("\tTop index: " + stack.getTop());
-        for (int i= stack.getArr().length-1; i>=0; i--){
+        for (int i = stack.getSize()-1; i>=0; i--){
             System.out.printf("\t\tStack[%d]: %d\n", i, stack.getArrValueAtIndex(i));
         }
         System.out.println();

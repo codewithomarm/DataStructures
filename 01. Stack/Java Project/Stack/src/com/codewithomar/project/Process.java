@@ -76,32 +76,52 @@ public class Process {
      * @exception IOException If Input/Output exception.
      * @exception NumberFormatException If the user input is different from an integer value.
      */
-    public void mainMenu(){
+    private void mainMenu(){
         boolean exitMainMenu = false;
         do {
             System.out.println("Stack Main Menu");
             System.out.println("Option 1: Print Stack");
-            System.out.println("Option 2: Add one item to Stack");
-            System.out.println("Option 3: Delete one item from Stack");
-            System.out.println("Option 4: Exit Program");
+            System.out.println("Option 2: Peek top element at the Stack");
+            System.out.println("Option 3: Get Stack total elements");
+            System.out.println("Option 4: Get Stack empty elements");
+            System.out.println("Option 5: Add one item to Stack");
+            System.out.println("Option 6: Delete one item from Stack");
+            System.out.println("Option 7: Exit Program");
             System.out.println("Please input the integer value of the option you want:");
             try {
                 int menuResponse = Integer.parseInt(br.readLine());
                 switch (menuResponse) {
                     case 1: //Print Stack
                         System.out.println();
-                        stackService.printStack();
+                        stackService.print();
                         System.out.println();
                         break;
-                    case 2: //Push Stack
+                    case 2: //Peek Top element
+                        System.out.println();
+                        this.peekStackElement();
+                        System.out.println();
+                        break;
+                    case 3: //Total Elements
+                        System.out.println();
+                        this.getStackSize();
+                        System.out.println();
+                        break;
+                    case 4: //Empty Elements
+                        System.out.println();
+                        this.getStackEmptyElements();
+                        System.out.println();
+                        break;
+                    case 5: //Push Stack
                         System.out.println();
                         this.pushStack();
+                        System.out.println();
                         break;
-                    case 3: //Pop Stack
+                    case 6: //Pop Stack
                         System.out.println();
                         this.popStack();
+                        System.out.println();
                         break;
-                    case 4: //Exit Program
+                    case 7: //Exit Program
                         System.out.println();
                         boolean exitProgram = this.exitProgram();
                         if (exitProgram) {
@@ -124,10 +144,37 @@ public class Process {
     }
 
     /**
+     * This method contains the implementation of the PeekTop method from "stackService" object in the program.
+     * If the stack is not empty, it will print the element at the Top index position.
+     */
+    private void peekStackElement(){
+        int topElement = stackService.peek();
+        if (topElement == -1) {
+            System.out.println("Stack is currently empty.");
+            System.out.println("No element at the Top of the Stack.");
+        } else {
+            System.out.println("Element at the Top of the Stack is: " + topElement);
+        }
+    }
+
+    /**
+     * This method contains the implementation of the "getStackTotalElements" method from "stackService object
+     * in the program.
+     */
+    private void getStackSize(){
+        System.out.println("Stack total elements: " + stackService.getSize());
+    }
+
+    /**
+     * This method contains the implementation of the "getStackEmptyElements" method from "stackService" object
+     * in the program
+     */
+    private void getStackEmptyElements(){
+        System.out.println("Stack empty elements: " + stackService.getEmptyElements());
+    }
+
+    /**
      * This method contains the implementation of the Push method from "stackService" object in the program.
-     * <br></br>
-     * <br>The method will be executed whenever the user chooses "option #2: Add one item to the Stack"
-     * from the program's main menu.</br>
      * <br></br>
      * <br>The method will ask the user to input a positive integer to add it to the stack.</br>
      * <br></br>
@@ -151,7 +198,7 @@ public class Process {
                     System.out.println("Integer value must be positive.");
                     System.out.println("Please try again.\n");
                 } else {
-                    int pushResult = stackService.pushStack(pushValue);
+                    int pushResult = stackService.push(pushValue);
                     if (pushResult == -1) {
                         System.out.println("Stack is currently full.");
                         System.out.println("Stack Overflow!");
@@ -173,17 +220,13 @@ public class Process {
 
     /**
      * This method contains the implementation of the Pop method from "stackService" object in the program.
-     * <br></br>
-     * <br>The method will be executed whenever the user chooses "option #3: Delete one item from stack"
-     * from the program's main menu.</br>
-     * <br></br>
      * @exception IOException If Input/Output exception.
      * @exception NumberFormatException If the user input is different from an integer value.
      * @see StackService
      * @see Stack
      */
     private void popStack() {
-        int popValue = stackService.popStack();
+        int popValue = stackService.pop();
         if (popValue == -1) {
             System.out.println("Stack is currently empty.");
             System.out.println("Stack Underflow!\n");
@@ -196,14 +239,12 @@ public class Process {
     /**
      * This method contains the logic for exiting the main program.
      * The method will ask a confirmation before exiting the program.
-     * <br>The method will be executed whenever the user chooses "option #4: Exit Program"
-     * from the program's main menu.</br>
      * If the client input 1, it will exit the program. If the client input 0
      * the program will go back to the main menu.
      * @return "true" if a client confirms, they want to exit the program by inputting "1"
      *         "false" if a client confirms they do not want to exit the program by inputting "0".
      */
-    public boolean exitProgram() {
+    private boolean exitProgram() {
         boolean exitMethod = false;
         boolean exitProgram = false;
         do {
